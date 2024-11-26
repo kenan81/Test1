@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhazca Testi</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 2em;
+        }
+
+        .question {
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .answer-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .answer-button:hover {
+            background-color: #45a049;
+        }
+
+        .answer-button:active {
+            transform: scale(0.98);
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #4CAF50;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Abhazca Testi</h1>
+        <div class="question" id="question">Bu bir test sorusudur.</div>
+        <button class="answer-button" onclick="submitAnswer('A')">A Şıkkı</button>
+        <button class="answer-button" onclick="submitAnswer('B')">B Şıkkı</button>
+        <div class="result" id="result"></div>
+        <div class="footer">Abhazca Testi 2024 - Tasarım Yapıldı</div>
+    </div>
+
+    <script>
+        const questionElement = document.getElementById('question');
+        const resultElement = document.getElementById('result');
+        
+        let questionData = [
+            {
+                question: "Abhazca'da 'Merhaba' nasıl söylenir?",
+                correctAnswer: 'A',
+                options: ['A. Бзыкъэ', 'B. Вах', 'C. Сэх']
+            },
+            {
+                question: "Abhazca'da 'Nasılsın?' nasıl sorulur?",
+                correctAnswer: 'B',
+                options: ['A. Уахэр', 'B. Уар', 'C. Леб']
+            },
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            let currentQuestion = questionData[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            document.querySelectorAll('.answer-button')[0].textContent = currentQuestion.options[0];
+            document.querySelectorAll('.answer-button')[1].textContent = currentQuestion.options[1];
+            resultElement.textContent = "";
+        }
+
+        function submitAnswer(answer) {
+            let currentQuestion = questionData[currentQuestionIndex];
+            if (answer === currentQuestion.correctAnswer) {
+                resultElement.textContent = "Tebrikler, doğru cevap!";
+                resultElement.style.color = 'green';
+            } else {
+                resultElement.textContent = "Üzgünüm, yanlış cevap!";
+                resultElement.style.color = 'red';
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questionData.length) {
+                setTimeout(loadQuestion, 1500);
+            } else {
+                resultElement.textContent = "Testi tamamladınız!";
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
